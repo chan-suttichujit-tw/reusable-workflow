@@ -2,15 +2,7 @@ name: Test
 
 on:
   workflow_call:
-    inputs:
-      application_name:
-        required: true
-        type: string
-    secrets:
-      jedis_user:
-        required: true
-      jedis_pat:
-        required: true
+
 
 jobs:
   tests:

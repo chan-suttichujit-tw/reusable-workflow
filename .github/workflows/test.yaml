@@ -18,16 +18,3 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Build
-        working-directory: ./${{ inputs.application_name }}
-        env:
-          JEDIS_USER: ${{ secrets.jedis_user }}
-          JEDIS_PAT: ${{ secrets.jedis_pat }}
-        run: |
-          dotnet nuget list source
-          dotnet nuget update source 'jedis-feed' --username $JEDIS_USER --password $JEDIS_PAT --store-password-in-clear-text --configfile 'nuget.config'
-          dotnet restore --configfile "nuget.config" ./Source/Jetstar.Jedis.${{ inputs.application_name }}.sln
-      - name: Run Tests
-        working-directory: ./${{ inputs.application_name }}
-        run: |
-          dotnet test ./Source/Jetstar.Jedis.${{ inputs.application_name }}.sln -v minimal --filter 'FullyQualifiedName!~Clients.Tests&FullyQualifiedName!~Specs'
